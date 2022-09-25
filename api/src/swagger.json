@@ -1,0 +1,851 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"Exchange": {
+				"properties": {
+					"value": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"desc": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"value",
+					"name",
+					"desc"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Nominal_string.ResolutionString_": {
+				"allOf": [
+					{
+						"type": "string"
+					},
+					{
+						"properties": {
+							"undefined": {
+								"type": "string",
+								"enum": [
+									"ResolutionString"
+								],
+								"nullable": false
+							}
+						},
+						"required": [
+							null
+						],
+						"type": "object"
+					}
+				],
+				"description": "This is the generic type useful for declaring a nominal type,\nwhich does not structurally matches with the base type and\nthe other types declared over the same base type\n\nUsage:"
+			},
+			"ResolutionString": {
+				"$ref": "#/components/schemas/Nominal_string.ResolutionString_"
+			},
+			"Record_string.Unit-Array_": {
+				"properties": {},
+				"type": "object",
+				"description": "Construct a type with a set of properties K of type T"
+			},
+			"CurrencyItem": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"code": {
+						"type": "string"
+					},
+					"logoUrl": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"code"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DatafeedSymbolType": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"value"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UdfCompatibleConfiguration": {
+				"properties": {
+					"exchanges": {
+						"items": {
+							"$ref": "#/components/schemas/Exchange"
+						},
+						"type": "array"
+					},
+					"supported_resolutions": {
+						"items": {
+							"$ref": "#/components/schemas/ResolutionString"
+						},
+						"type": "array"
+					},
+					"units": {
+						"$ref": "#/components/schemas/Record_string.Unit-Array_"
+					},
+					"currency_codes": {
+						"items": {
+							"anyOf": [
+								{
+									"type": "string"
+								},
+								{
+									"$ref": "#/components/schemas/CurrencyItem"
+								}
+							]
+						},
+						"type": "array"
+					},
+					"supports_marks": {
+						"type": "boolean"
+					},
+					"supports_time": {
+						"type": "boolean"
+					},
+					"supports_timescale_marks": {
+						"type": "boolean"
+					},
+					"symbols_types": {
+						"items": {
+							"$ref": "#/components/schemas/DatafeedSymbolType"
+						},
+						"type": "array"
+					},
+					"supports_search": {
+						"type": "boolean"
+					},
+					"supports_group_request": {
+						"type": "boolean"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CustomTimezones": {
+				"type": "string",
+				"enum": [
+					"Africa/Cairo",
+					"Africa/Johannesburg",
+					"Africa/Lagos",
+					"America/Argentina/Buenos_Aires",
+					"America/Bogota",
+					"America/Caracas",
+					"America/Chicago",
+					"America/El_Salvador",
+					"America/Juneau",
+					"America/Lima",
+					"America/Los_Angeles",
+					"America/Mexico_City",
+					"America/New_York",
+					"America/Phoenix",
+					"America/Santiago",
+					"America/Sao_Paulo",
+					"America/Toronto",
+					"America/Vancouver",
+					"Asia/Almaty",
+					"Asia/Ashkhabad",
+					"Asia/Bahrain",
+					"Asia/Bangkok",
+					"Asia/Chongqing",
+					"Asia/Dubai",
+					"Asia/Ho_Chi_Minh",
+					"Asia/Hong_Kong",
+					"Asia/Jakarta",
+					"Asia/Jerusalem",
+					"Asia/Karachi",
+					"Asia/Kathmandu",
+					"Asia/Kolkata",
+					"Asia/Kuwait",
+					"Asia/Manila",
+					"Asia/Muscat",
+					"Asia/Qatar",
+					"Asia/Riyadh",
+					"Asia/Seoul",
+					"Asia/Shanghai",
+					"Asia/Singapore",
+					"Asia/Taipei",
+					"Asia/Tehran",
+					"Asia/Tokyo",
+					"Atlantic/Reykjavik",
+					"Australia/ACT",
+					"Australia/Adelaide",
+					"Australia/Brisbane",
+					"Australia/Perth",
+					"Australia/Sydney",
+					"Europe/Amsterdam",
+					"Europe/Athens",
+					"Europe/Belgrade",
+					"Europe/Berlin",
+					"Europe/Bratislava",
+					"Europe/Brussels",
+					"Europe/Bucharest",
+					"Europe/Copenhagen",
+					"Europe/Dublin",
+					"Europe/Helsinki",
+					"Europe/Istanbul",
+					"Europe/Lisbon",
+					"Europe/London",
+					"Europe/Luxembourg",
+					"Europe/Madrid",
+					"Europe/Malta",
+					"Europe/Moscow",
+					"Europe/Oslo",
+					"Europe/Paris",
+					"Europe/Riga",
+					"Europe/Rome",
+					"Europe/Stockholm",
+					"Europe/Tallinn",
+					"Europe/Vilnius",
+					"Europe/Warsaw",
+					"Europe/Zurich",
+					"Pacific/Auckland",
+					"Pacific/Chatham",
+					"Pacific/Fakaofo",
+					"Pacific/Honolulu",
+					"Pacific/Norfolk",
+					"US/Mountain"
+				]
+			},
+			"Timezone": {
+				"anyOf": [
+					{
+						"$ref": "#/components/schemas/CustomTimezones"
+					},
+					{
+						"type": "string",
+						"enum": [
+							"Etc/UTC"
+						]
+					}
+				]
+			},
+			"SeriesFormat": {
+				"type": "string",
+				"enum": [
+					"price",
+					"volume"
+				]
+			},
+			"VisiblePlotsSet": {
+				"type": "string",
+				"enum": [
+					"ohlcv",
+					"ohlc",
+					"c"
+				]
+			},
+			"LibrarySymbolInfo": {
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "Symbol Name"
+					},
+					"full_name": {
+						"type": "string"
+					},
+					"base_name": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"ticker": {
+						"type": "string",
+						"description": "Unique symbol id"
+					},
+					"description": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"session": {
+						"type": "string",
+						"example": "1700-0200"
+					},
+					"session_display": {
+						"type": "string"
+					},
+					"holidays": {
+						"type": "string",
+						"deprecated": true
+					},
+					"session_holidays": {
+						"type": "string",
+						"example": "20181105,20181107,20181112"
+					},
+					"corrections": {
+						"type": "string",
+						"example": "1900F4-2350F4,1000-1845:20181113;1000-1400:20181114"
+					},
+					"exchange": {
+						"type": "string",
+						"description": "Traded exchange",
+						"example": "NYSE"
+					},
+					"listed_exchange": {
+						"type": "string"
+					},
+					"timezone": {
+						"$ref": "#/components/schemas/Timezone"
+					},
+					"format": {
+						"$ref": "#/components/schemas/SeriesFormat",
+						"description": "Prices format: \"price\" or \"volume\""
+					},
+					"pricescale": {
+						"type": "number",
+						"format": "double",
+						"description": "Code (Tick)"
+					},
+					"minmov": {
+						"type": "number",
+						"format": "double",
+						"description": "The number of units that make up one tick."
+					},
+					"fractional": {
+						"type": "boolean"
+					},
+					"minmove2": {
+						"type": "number",
+						"format": "double"
+					},
+					"has_intraday": {
+						"type": "boolean",
+						"description": "false if DWM only"
+					},
+					"supported_resolutions": {
+						"items": {
+							"$ref": "#/components/schemas/ResolutionString"
+						},
+						"type": "array",
+						"description": "An array of resolutions which should be enabled in resolutions picker for this symbol."
+					},
+					"intraday_multipliers": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"has_seconds": {
+						"type": "boolean"
+					},
+					"has_ticks": {
+						"type": "boolean"
+					},
+					"seconds_multipliers": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array",
+						"description": "It is an array containing seconds resolutions (in seconds without a postfix) the datafeed builds by itself."
+					},
+					"has_daily": {
+						"type": "boolean"
+					},
+					"has_weekly_and_monthly": {
+						"type": "boolean"
+					},
+					"has_empty_bars": {
+						"type": "boolean"
+					},
+					"has_no_volume": {
+						"type": "boolean",
+						"deprecated": true
+					},
+					"visible_plots_set": {
+						"$ref": "#/components/schemas/VisiblePlotsSet",
+						"description": "Represents what values are supported by the symbol"
+					},
+					"volume_precision": {
+						"type": "number",
+						"format": "double",
+						"description": "Integer showing typical volume value decimal places for this symbol"
+					},
+					"data_status": {
+						"type": "string",
+						"enum": [
+							"streaming",
+							"endofday",
+							"pulsed",
+							"delayed_streaming"
+						]
+					},
+					"expired": {
+						"type": "boolean",
+						"description": "Boolean showing whether this symbol is expired futures contract or not."
+					},
+					"expiration_date": {
+						"type": "number",
+						"format": "double",
+						"description": "Unix timestamp of expiration date."
+					},
+					"sector": {
+						"type": "string"
+					},
+					"industry": {
+						"type": "string"
+					},
+					"currency_code": {
+						"type": "string"
+					},
+					"original_currency_code": {
+						"type": "string"
+					},
+					"unit_id": {
+						"type": "string"
+					},
+					"original_unit_id": {
+						"type": "string"
+					},
+					"unit_conversion_types": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"name",
+					"full_name",
+					"description",
+					"type",
+					"session",
+					"exchange",
+					"listed_exchange",
+					"timezone",
+					"format",
+					"pricescale",
+					"minmov",
+					"supported_resolutions"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UdfErrorResponse": {
+				"properties": {
+					"s": {
+						"type": "string",
+						"enum": [
+							"error",
+							"no_data"
+						]
+					},
+					"nextTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"errmsg": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"s"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UdfSearchSymbolsResponse": {
+				"properties": {
+					"s": {}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TradeHistory": {
+				"properties": {
+					"s": {
+						"type": "string"
+					},
+					"t": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"c": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"o": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"h": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"l": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"v": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"s",
+					"t",
+					"c",
+					"o",
+					"h",
+					"l",
+					"v"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "rougemarketapi",
+		"version": "0.1.2",
+		"description": "RougeMarket API (UDF-Compatible)",
+		"license": {
+			"name": "MIT"
+		},
+		"contact": {}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/": {
+			"get": {
+				"operationId": "Base",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves a status message.",
+				"tags": [
+					"UDF"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/time": {
+			"get": {
+				"operationId": "Time",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "number",
+									"format": "double"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves a timestamp form the server in UTC.",
+				"tags": [
+					"UDF"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/config": {
+			"get": {
+				"operationId": "Config",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UdfCompatibleConfiguration"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves a config form the server for UDF.",
+				"tags": [
+					"UDF"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/symbol_info": {
+			"get": {
+				"operationId": "Symbol_info",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LibrarySymbolInfo"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves a symbol-info object containing all symbols.",
+				"tags": [
+					"UDF"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "group",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/symbols": {
+			"get": {
+				"operationId": "Symbols",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/LibrarySymbolInfo"
+										},
+										{
+											"$ref": "#/components/schemas/UdfErrorResponse"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves a symbol-info object containing searched symbols.",
+				"tags": [
+					"UDF"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "symbol",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/search": {
+			"get": {
+				"operationId": "Search",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/UdfSearchSymbolsResponse"
+										},
+										{
+											"$ref": "#/components/schemas/UdfErrorResponse"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves a symbol-info object searched (advanced) all symbols.",
+				"tags": [
+					"UDF"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "query",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "type",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "exchange",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/history": {
+			"get": {
+				"operationId": "History",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/TradeHistory"
+										},
+										{
+											"$ref": "#/components/schemas/UdfErrorResponse"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves a history object for a symbols.",
+				"tags": [
+					"UDF"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "symbol",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "resolution",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "from",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "to",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "countback",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "currencyCode",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}

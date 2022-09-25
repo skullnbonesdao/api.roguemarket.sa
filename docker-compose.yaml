@@ -77,7 +77,7 @@ services:
     environment:
       LIMIT: 200
       MODE: sync
-      SIGNATURE: tVBYazqwqZ4MfAhAj83CywUBTtaoWXBwkivM4SgLh7tth2XbXCeFkMQJZVjRKwFsrLcJGxSiPM3JhwNJ7XuVLJV
+      SIGNATURE: 3tHpLHtT9gVdzx9JJioARrjEGh28aFYxp7LXmxpbkyAnr8YnknzJv2w4BW5KwcJCgNkQLdduzUSYHLi2suZdEVbQ
       SLEEP: 1000
       SOLANARPC: https://ssc-dao.genesysgo.net/
       RETHINKDB_HOST: db0
