@@ -6,10 +6,11 @@ import px4_trade_json from "./samples/input/px4_arb_trade.json";
 
 import fuel_db_json from "./samples/output/fuel_trade.json";
 import px4_db_json from "./samples/output/px4_arb_trade.json";
+import {localStoreInstance} from "../../../libs/library";
 
 describe("mapper", function () {
-    it("map_fuel", function () {
-
+    it("map_fuel", async function () {
+        await localStoreInstance.init()
         // @ts-ignore
         const tx: ParsedTransactionWithMeta = fuel_trade_json
 
@@ -21,6 +22,8 @@ describe("mapper", function () {
     });
 
     it("map_px4_arb", async function () {
+        await localStoreInstance.init()
+
         const px4_trade = px4_trade_json as unknown as ParsedTransactionWithMeta;
 
         const worker = new Worker();

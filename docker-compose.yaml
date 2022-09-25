@@ -6,7 +6,7 @@ services:
     image: rethinkdb:latest
     container_name: rethinkdb_1
     ports:
-      - "8080:8080"
+      - "9999:8080"
       - "29015:29015"
       - "28015:28015"
     volumes:

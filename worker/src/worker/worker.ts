@@ -1,6 +1,5 @@
 import {Connection, ParsedTransactionWithMeta, PublicKey,} from "@solana/web3.js";
-import {DBTrade, localStoreInstance, toParsedInstruction, toTrade} from "../../../libs/library"
-import {MARKETPLACEPROGRAM} from "../../../libs/library"
+import {DBTrade, localStoreInstance, MARKETPLACEPROGRAM, toParsedInstruction, toTrade} from "../../../libs/library"
 
 interface IWorker {
     connection: Connection;
@@ -18,7 +17,7 @@ export class Worker implements IWorker {
     status: Status;
 
     constructor() {
-        this.connection = new Connection(process.env.SOLANARPC ?? "");
+        this.connection = new Connection(process.env.SOLANARPC ?? "https://api.devnet.solana.com");
         this.status = {
             signatures_length: 0,
             transactions_length: 0,
@@ -121,6 +120,6 @@ export class Worker implements IWorker {
     printStatus(mode: string, written: number) {
         console.log(`mode=${mode}
     signatures\t -> transactions\t -> filtered\t -> dbEntries\t -> written
-    ${this.status.signatures_length}\t\t -> ${this.status.transactions_length}\t\t\t -> ${this.status.filter_length}\t\t -> ${this.status.map_length}\t\t  -> ${written}`);
+    ${this.status.signatures_length}\t\t\t -> ${this.status.transactions_length}\t\t\t -> ${this.status.filter_length}\t\t -> ${this.status.map_length}\t\t  -> ${written}`);
     }
 }
