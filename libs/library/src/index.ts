@@ -4,7 +4,7 @@ export * from './database/getOHLC';
 export * from './database/getNext';
 export * from './helper/Sleep';
 export * from './helper/FileWriter';
-export * from './helper/Secounds';
+export * from './helper/TimeConvert';
 export * from './interfaces/DBTrade';
 export * from './interfaces/Currency';
 export * from './interfaces/Symbol';

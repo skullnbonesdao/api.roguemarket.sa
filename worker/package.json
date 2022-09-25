@@ -2,9 +2,9 @@
   "name": "main",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "scripts": {
-    "clean": "rm -rf ./node_modules && rm -rf ./dist",
+    "clean": "rm -rf ./node_modules && rm -rf ./dist && rm -rf ./build",
     "pre_build": "npm install",
     "test": "jest",
     "dev": "npx ts-node src/index.ts",
@@ -15,7 +15,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^16.3.3",
     "ts-node": "^10.8.1",
     "ts-project-bundle": "0.0.8",
     "@solana/web3.js": "^1.62.1",

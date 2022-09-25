@@ -1,9 +1,9 @@
 import {r} from 'rethinkdb-ts';
-import {getSeconds} from "../helper/Secounds";
+import {timeConvert} from "../helper/TimeConvert";
 
 export async function getOHLC(connection: any, symbol: string, resolution: string, from: number, to: number) {
 
-    const resolution_number = getSeconds(resolution) * 60
+    const resolution_number = timeConvert(resolution)
 
     return await r
         .db('staratlas')
