@@ -1,0 +1,20 @@
+FROM node:14
+
+WORKDIR /WORKERHOME
+
+COPY ./api/package.json ./api/package.json
+COPY ./libs/library/package.json ./libs/library/package.json
+
+RUN cd ./libs/library && npm install
+RUN cd ./api && npm install
+RUN npm install typescript -g
+
+COPY ./libs/library ./libs/library
+COPY ./api ./api
+
+
+RUN cd api && npm run build
+
+
+
+CMD ["node", "./api/dist/server.js"]

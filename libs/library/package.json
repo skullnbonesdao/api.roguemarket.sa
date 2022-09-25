@@ -1,0 +1,25 @@
+{
+  "name": "a",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^16.3.3",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "dayjs": "^1.10.6",
+    "axios": "^0.27.2",
+    "@types/cli-progress": "^3.11.0",
+    "fs": "^0.0.1-security",
+    "rethinkdb-ts": "^2.4.22",
+    "cli-progress": "^3.11.2"
+  }
+}

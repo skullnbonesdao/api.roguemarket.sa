@@ -1,0 +1,90 @@
+version: "3.7"
+
+services:
+  db0:
+    hostname: db0_main
+    image: rethinkdb:latest
+    container_name: rethinkdb_1
+    ports:
+      - "8080:8080"
+      - "29015:29015"
+      - "28015:28015"
+    volumes:
+      - "rethinkdb_data_0:/data"
+
+  db1:
+    hostname: db0_sec
+    image: rethinkdb:latest
+    container_name: rethinkdb_2
+    command:
+      - /bin/bash
+      - -c
+      - |
+        rethinkdb --port-offset 1 --join db0:29015 --bind all
+    ports:
+      - "8081:8081"
+      - "29016:29011"
+      - "28016:28016"
+    volumes:
+      - "rethinkdb_data_1:/data"
+    links:
+      - db0
+
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - "3000:3000"
+    links:
+      - db0
+    environment:
+      RETHINKDB_HOST: db0
+      restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+
+  worker_loop:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    restart: always
+    links:
+      - db0
+    environment:
+      LIMIT: 100
+      MODE: loop
+      SIGNATURE: tVBYazqwqZ4MfAhAj83CywUBTtaoWXBwkivM4SgLh7tth2XbXCeFkMQJZVjRKwFsrLcJGxSiPM3JhwNJ7XuVLJV
+      SLEEP: 5000
+      SOLANARPC: https://ssc-dao.genesysgo.net/
+      RETHINKDB_HOST: db0
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+
+
+  worker_sync:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    restart: always
+    links:
+      - db0
+    environment:
+      LIMIT: 200
+      MODE: sync
+      SIGNATURE: tVBYazqwqZ4MfAhAj83CywUBTtaoWXBwkivM4SgLh7tth2XbXCeFkMQJZVjRKwFsrLcJGxSiPM3JhwNJ7XuVLJV
+      SLEEP: 1000
+      SOLANARPC: https://ssc-dao.genesysgo.net/
+      RETHINKDB_HOST: db0
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+volumes:
+  rethinkdb_data_0:
+  rethinkdb_data_1:

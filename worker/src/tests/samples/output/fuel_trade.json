@@ -1,0 +1,16 @@
+{
+  "signature": "2bNCgw5KykVjoh99c6TgeysrSjQwTgPVvEbnsxhwJ6fzMqFv1KsezJCQQKfL4Zh9uDEpdGeNFALorTPqHmX1UhG8",
+  "timestamp": 1663757804,
+  "slot": 151670246,
+  "trade": [
+    {
+      "buyer": "6UFTGVTTB9citezyWetDygFo9V9LrcoUi9WE76PSskUy",
+      "currency_mint": "ATLASXmbPQxBUYbxPsV97usA3fPQYEqzQBUHgiFCUsXx",
+      "token_mint": "fueL3hBZjLLLJHiFH9cqZoozTG3XQZ53diwFPwbzNim",
+      "seller": "3mZq4Q6CoeMuws6iAbBtXUAxhbXxAUw5tBQkSHScpKKx",
+      "side": 0,
+      "currency_amount": 14.4336,
+      "token_amount": 10000
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "signature": "5JZtanPkfCjJtP4Ax8aePk5uuBA7BvedJjz2wQeoJDG56EWSmzo3t1ZNkT9uebJ8SwAXB5oRkh9SrWLZ75JU7YBg",
+  "timestamp": 1661930521,
+  "slot": 148466878,
+  "trade": [
+    {
+      "buyer": "3tdhBEWCecYzgZ44VcYHgsZGKZUXNjBikpiUF1hX3pxf",
+      "currency_mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "token_mint": "2iMhgB4pbdKvwJHVyitpvX5z1NBNypFonUgaSAt9dtDt",
+      "seller": "HU3VfcGaUaYJjvfu54nbzqWSmM1zVwK76QdwqMXSSCqJ",
+      "side": 0,
+      "currency_amount": 4.5,
+      "token_amount": 1
+    },
+    {
+      "buyer": "6fAWQH7X12esGwCPWcWUQ6QuaoZMjaK9kSc5THhqibhB",
+      "currency_mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "token_mint": "2iMhgB4pbdKvwJHVyitpvX5z1NBNypFonUgaSAt9dtDt",
+      "seller": "FKqGuq7b813cZZwbDxwyyvSE4pxS8vBA3VTEBffd8GVr",
+      "side": 1,
+      "currency_amount": 4.849999,
+      "token_amount": 1
+    }
+  ]
+}
