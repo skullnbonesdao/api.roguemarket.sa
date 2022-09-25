@@ -1,3 +1,3 @@
-# API Rouge Marketplace
+# API Rogue Marketplace
 
-This repo contains the Rouge Marketplace API
+This repo contains the Rogue Marketplace API

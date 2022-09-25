@@ -1,7 +1,7 @@
 {
-  "name": "rougemarketapi",
+  "name": "roguemarketapi",
   "version": "0.1.2",
-  "description": "RougeMarket API (UDF-Compatible)",
+  "description": "RogueMarket API (UDF-Compatible)",
   "main": "src/app.js",
   "scripts": {
     "clean": "rm -rf build/ && rm -rf ./node_modules",
