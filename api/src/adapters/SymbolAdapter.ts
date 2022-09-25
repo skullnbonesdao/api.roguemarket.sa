@@ -1,5 +1,5 @@
 import {UdfCompatibleConfiguration, UdfSearchSymbolsResponse,} from "../interfaces/DatafeedUDFCompatibleInterfaces";
-import {LibrarySymbolInfo, ResolutionString,} from "../interfaces/DatafeedInterfaces";
+import {CustomTimezones, LibrarySymbolInfo, ResolutionString,} from "../interfaces/DatafeedInterfaces";
 
 import {Symbol} from "../../../libs/library";
 
@@ -7,7 +7,7 @@ export class SymbolAdapter {
     public symbols: Symbol[] = [];
     public exchange = "GM";
     public type = "NFT";
-    public timezone = "UTC";
+    public timezone: "Etc/UTC" | CustomTimezones = "Etc/UTC";
     public minmov = 0.0000001;
     public minmov2 = 0.0000001;
     public minmovement = 0;
@@ -107,7 +107,7 @@ export class SymbolAdapter {
             session: this.session,
             supported_resolutions: this.supported_resolutions,
             ticker: this.symbols[0].symbol_pair,
-            timezone: "Etc/UTC",
+            timezone: this.timezone,
             type: this.type,
         };
     }
