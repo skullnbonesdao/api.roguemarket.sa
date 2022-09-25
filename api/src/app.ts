@@ -4,9 +4,14 @@ import {RegisterRoutes} from "./routes";
 import swaggerUi from "swagger-ui-express";
 
 import {ValidateError} from "@tsoa/runtime";
+import cors from "cors";
 
 export const app = express();
-
+app.use(
+    cors({
+        origin: "*",
+    })
+);
 
 app.use(
     bodyParser.urlencoded({
