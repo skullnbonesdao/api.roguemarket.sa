@@ -1,4 +1,4 @@
-name: Publish API Docker image
+name: Publish Worker Docker image
 
 on:
   push:
@@ -25,6 +25,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./Dockerfile.api
+          file: ./Dockerfile.worker
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/rogue_api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/rogue_worker:latest
