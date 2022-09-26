@@ -79,21 +79,13 @@ export class UDFController extends Controller {
         @Query() countback?: number,
         @Query() currencyCode?: string
     ): Promise<TradeHistory | UdfErrorResponse> {
-        try {
-            return new UDFSymbolService().history(
-                symbol,
-                from,
-                to,
-                resolution,
-                countback,
-                currencyCode
-            );
-        } catch (err) {
-            console.log(err);
-        }
-        return {
-            s: "error",
-            errmsg: `Internal server error!`,
-        };
+        return new UDFSymbolService().history(
+            symbol,
+            from,
+            to,
+            resolution,
+            countback,
+            currencyCode
+        );
     }
 }

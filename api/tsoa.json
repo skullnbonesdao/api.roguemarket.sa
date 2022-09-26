@@ -5,11 +5,11 @@
     "src/**/*Controller.ts"
   ],
   "spec": {
-    "outputDirectory": "src",
+    "outputDirectory": "conf",
     "specVersion": 3
   },
   "routes": {
-    "routesDir": "src",
+    "routesDir": "conf",
     "middleware": "express"
   },
   "references": [

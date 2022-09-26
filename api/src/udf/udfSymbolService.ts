@@ -58,7 +58,6 @@ export class UDFSymbolService {
         currentyCode?: string
     ): Promise<TradeHistory | UdfErrorResponse> {
         let result: TradeHistory | UdfErrorResponse
-
         try {
             const db = new RethinkDB()
             await db.init()
@@ -80,22 +79,18 @@ export class UDFSymbolService {
                 tradeHistory.l.push(ohcl.l)
                 tradeHistory.c.push(ohcl.c)
                 tradeHistory.v.push(ohcl.v)
-
             })
-
+            
             result = tradeHistory
             if (tradeHistory.t.length > 0)
                 result = tradeHistory
             else {
                 let next_time: number | undefined = await db.getNextTimestamp(symbol, to);
                 result = {
-
                     s: "no_data",
                     nextTime: next_time
                 }
             }
-
-
         } catch (e) {
             console.log(e)
             result = {
@@ -103,8 +98,6 @@ export class UDFSymbolService {
                 errmsg: `Error finding history: ${symbol}`,
             };
         }
-
-        console.log(result)
         return result
     }
 }
