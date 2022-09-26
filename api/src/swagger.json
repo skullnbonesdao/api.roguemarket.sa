@@ -545,9 +545,9 @@
 		"securitySchemes": {}
 	},
 	"info": {
-		"title": "rougemarketapi",
+		"title": "roguemarketapi",
 		"version": "0.1.2",
-		"description": "RougeMarket API (UDF-Compatible)",
+		"description": "RogueMarket API (UDF-Compatible)",
 		"license": {
 			"name": "MIT"
 		},
