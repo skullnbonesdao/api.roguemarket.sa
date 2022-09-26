@@ -32,9 +32,10 @@ services:
 
 
   api:
-    build:
-      context: .
-      dockerfile: Dockerfile.api
+    #  build:
+    #    context: .
+    #    dockerfile: Dockerfile.api
+    image: skullandbonesdao/rogue_api:latest
     ports:
       - "3000:3000"
     links:
@@ -48,9 +49,10 @@ services:
         max-size: "10m"
 
   worker_loop:
-    build:
-      context: .
-      dockerfile: Dockerfile.worker
+    image: skullandbonesdao/rogue_worker:latest
+    #    build:
+    #      context: .
+    #      dockerfile: Dockerfile.worker
     restart: always
     links:
       - db0
@@ -68,9 +70,10 @@ services:
 
 
   worker_sync:
-    build:
-      context: .
-      dockerfile: Dockerfile.worker
+    image: skullandbonesdao/rogue_worker:latest
+    #build:
+    #  context: .
+    #  dockerfile: Dockerfile.worker
     restart: always
     links:
       - db0
