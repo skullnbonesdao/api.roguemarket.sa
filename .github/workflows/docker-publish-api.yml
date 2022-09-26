@@ -26,6 +26,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          dockerfile: ./Dockerfile.api
+          file: ./Dockerfile.api
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/api:latest
