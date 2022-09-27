@@ -80,8 +80,7 @@ export class UDFSymbolService {
                 tradeHistory.c.push(ohcl.c)
                 tradeHistory.v.push(ohcl.v)
             })
-            
-            result = tradeHistory
+
             if (tradeHistory.t.length > 0)
                 result = tradeHistory
             else {
