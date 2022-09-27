@@ -19,10 +19,10 @@ services:
         max-size: "10m"
 
   worker_loop:
-    image: skullandbonesdao/rogue_worker:latest
-    #    build:
-    #      context: .
-    #      dockerfile: Dockerfile.worker
+    #image: skullandbonesdao/rogue_worker:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
     restart: always
     environment:
       LIMIT: 100
@@ -40,10 +40,10 @@ services:
 
 
   worker_sync:
-    image: skullandbonesdao/rogue_worker:latest
-    #build:
-    #  context: .
-    #  dockerfile: Dockerfile.worker
+    #image: skullandbonesdao/rogue_worker:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
     restart: always
     environment:
       LIMIT: 200

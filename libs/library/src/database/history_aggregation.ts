@@ -6,10 +6,14 @@ export function get_history_aggregation(symbol: string, resolution: string, from
     return [
         {
             $match: {
-                "trade.symbol": symbol,
+                "symbol": symbol,
             },
         },
         {
+            $match: {
+                timestamp: {$lt: to, $gt: from},
+            },
+        }, {
             $match: {
                 timestamp: {$lt: to, $gt: from},
             },
@@ -22,8 +26,15 @@ export function get_history_aggregation(symbol: string, resolution: string, from
                     },
                 },
                 symbol: "$trade.symbol",
-                price: "$trade.cost_price",
-                volume: "$trade.size",
+                price: {
+                    $divide:
+                        [{
+                            $sum: "$trade.currency_amount"
+                        }, {
+                            $sum: "$trade.token_amount"
+                        }]
+                },
+                volume: {$sum: "$trade.token_amount"},
             },
         },
         {
