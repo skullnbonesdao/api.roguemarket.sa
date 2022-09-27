@@ -13,10 +13,6 @@ export function get_history_aggregation(symbol: string, resolution: string, from
             $match: {
                 timestamp: {$lt: to, $gt: from},
             },
-        }, {
-            $match: {
-                timestamp: {$lt: to, $gt: from},
-            },
         },
         {
             $addFields: {

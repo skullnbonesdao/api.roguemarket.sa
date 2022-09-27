@@ -4,10 +4,10 @@ import {TradeHistory} from "../interfaces/DatafeedUDFCompatibleTradeInterface";
 import {get_history_aggregation} from "./history_aggregation";
 
 export class DBClient {
-    private client: MongoClient
-    private collection: Collection
+    private client: MongoClient | undefined
+    private collection: Collection | undefined
 
-    constructor() {
+    async init() {
         this.client = new MongoClient(process.env.MONGOURL ?? "")
 
         this.client
@@ -27,7 +27,10 @@ export class DBClient {
                 }
             )
             .then((r) => console.log("> DB index created"))
-            .catch((err) => console.log(err))
+            .catch((err) => {
+                if (err.code !== 8000)
+                    console.log(err)
+            })
     }
 
     public async insert_data(db_entries: DBTrade[]): Promise<number> {
@@ -35,7 +38,7 @@ export class DBClient {
 
         for (const db_entry of db_entries) {
             await this.collection
-                .insertOne(db_entry)
+                ?.insertOne(db_entry)
                 .then((result) => (written_count += 1))
                 .catch((err) => {
                     if (!(err instanceof MongoServerError)) {
@@ -64,12 +67,12 @@ export class DBClient {
             v: [],
         };
 
-        const cursor = this.collection?.aggregate(
+        const cursor = await this.collection?.aggregate(
             get_history_aggregation(symbol, resolution, from, to)
         );
 
         const data = await cursor?.toArray();
-
+        
         data?.forEach((d) => {
             trades.o.push(d.open.toFixed(6));
             trades.c.push(d.close.toFixed(6));
@@ -83,3 +86,6 @@ export class DBClient {
         return trades;
     }
 }
+
+const databaseInstance = new DBClient()
+export {databaseInstance}

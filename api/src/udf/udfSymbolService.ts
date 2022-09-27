@@ -1,10 +1,9 @@
-import {DBClient, localStoreInstance} from "../../../libs/library";
+import {databaseInstance, localStoreInstance} from "../../../libs/library";
 import {TradeHistory} from "../interfaces/DatafeedUDFCompatibleTradeInterface";
 import {SymbolAdapter} from "../adapters/SymbolAdapter";
 import {UdfErrorResponse, UdfSearchSymbolsResponse,} from "../interfaces/DatafeedUDFCompatibleInterfaces";
 import {LibrarySymbolInfo} from "../interfaces/DatafeedInterfaces";
 
-//import {databaseAdapter} from "../adapters/DatabaseAdapter";
 
 export class UDFSymbolService {
     public symbol_info(): LibrarySymbolInfo {
@@ -59,21 +58,9 @@ export class UDFSymbolService {
     ): Promise<TradeHistory | UdfErrorResponse> {
         let result: TradeHistory | UdfErrorResponse
         try {
-            const db = new DBClient()
-
-            let tradeHistory = await db.query_candleStick(symbol, resolution, from, to)
-
+            let tradeHistory = await databaseInstance.query_candleStick(symbol, resolution, from, to)
             result = tradeHistory
 
-            /*  if (tradeHistory.t.length > 0)
-                  result = tradeHistory
-              else {
-                  let next_time: number | undefined = await db.getNextTimestamp(symbol, to);
-                  result = {
-                      s: "no_data",
-                      nextTime: next_time
-                  }
-              }*/
         } catch (e) {
             console.log(e)
             result = {

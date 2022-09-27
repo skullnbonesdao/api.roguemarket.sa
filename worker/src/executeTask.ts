@@ -1,9 +1,9 @@
 import {Worker} from "./worker/worker";
 import {ConfirmedSignatureInfo, ParsedTransactionWithMeta} from "@solana/web3.js";
-import {DBClient, DBTrade, ProgressBar} from "../../libs/library";
+import {databaseInstance, DBTrade, ProgressBar} from "../../libs/library";
 
 
-export async function executeTask(database: DBClient, before?: string): Promise<string | undefined> {
+export async function executeTask(before?: string): Promise<string | undefined> {
     try {
         const worker = new Worker();
 
@@ -22,7 +22,7 @@ export async function executeTask(database: DBClient, before?: string): Promise<
                 trades.push(worker.mapToDB(transaction as ParsedTransactionWithMeta))
             );
 
-            const written = await database.insert_data(trades)
+            const written = await databaseInstance.insert_data(trades)
             worker.printStatus(process.env.MODE ?? "", written);
 
             return signatures[signatures.length - 1].signature

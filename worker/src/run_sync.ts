@@ -1,13 +1,13 @@
-import {DBClient, sleep} from "../../libs/library";
+import {sleep} from "../../libs/library";
 import {executeTask} from "./executeTask";
 
-export const run_sync = async (database: DBClient) => {
+export const run_sync = async () => {
 
 
     let last_signature = process.env.SIGNATURE
     do {
         console.log(`last_signature=${last_signature}`)
-        last_signature = await executeTask(database, last_signature);
+        last_signature = await executeTask(last_signature);
         if (last_signature === "restart") {
             console.log("--- restart in 10s ---")
             await sleep(10000)
