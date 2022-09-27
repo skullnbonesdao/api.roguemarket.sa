@@ -72,7 +72,7 @@ export class UDFSymbolService {
                 } else {
                     result = {
                         s: "error",
-                        errmsg: `Error finding history: ${symbol}`,
+                        errmsg: `Error finding next history: ${symbol}`,
                     };
                 }
 

@@ -1,7 +1,7 @@
 import {Collection, MongoClient, MongoServerError} from "mongodb"
 import {DBTrade} from "../interfaces/DBTrade";
 import {TradeHistory} from "../interfaces/DatafeedUDFCompatibleTradeInterface";
-import {get_history_aggregation, get_history_next} from "./history_aggregation";
+import {get_history_aggregation, get_history_before, get_history_next} from "./history_aggregation";
 
 export class DBClient {
     private client: MongoClient | undefined
@@ -89,14 +89,24 @@ export class DBClient {
     public async find_next(symbol: string,
                            to: number,
     ): Promise<number | undefined> {
-        const cursor = await this.collection?.aggregate(
+        let cursor = await this.collection?.aggregate(
             get_history_next(symbol, to)
         )
-        const data = await cursor?.toArray()
+        let data = await cursor?.toArray()
         console.log(data)
+        //TODO clean up this mess
         if (data)
             if (data.length > 0)
                 return data[0].timestamp ?? undefined
+            else {
+                cursor = await this.collection?.aggregate(
+                    get_history_before(symbol, to)
+                )
+                data = await cursor?.toArray()
+                if (data)
+                    if (data.length > 0)
+                        return data[0].timestamp ?? undefined
+            }
     }
 }
 

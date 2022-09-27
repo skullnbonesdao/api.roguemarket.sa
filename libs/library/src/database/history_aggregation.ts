@@ -93,3 +93,25 @@ export function get_history_next(symbol: string, to: number) {
         }
     ]
 }
+
+export function get_history_before(symbol: string, to: number) {
+    return [
+        {
+            '$match': {
+                'symbol': symbol
+            }
+        }, {
+            '$match': {
+                'timestamp': {
+                    '$gt': to
+                }
+            }
+        }, {
+            '$sort': {
+                'timestamp': 1
+            }
+        }, {
+            '$limit': 1
+        }
+    ]
+}
