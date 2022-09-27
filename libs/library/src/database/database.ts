@@ -93,9 +93,10 @@ export class DBClient {
             get_history_next(symbol, to)
         )
         const data = await cursor?.toArray()
-
+        console.log(data)
         if (data)
-            return data[0].timestamp ?? undefined
+            if (data.length > 0)
+                return data[0].timestamp ?? undefined
     }
 }
 

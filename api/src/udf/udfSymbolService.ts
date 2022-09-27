@@ -64,13 +64,12 @@ export class UDFSymbolService {
                 result = tradeHistory
             } else {
                 const next_time = await databaseInstance.find_next(symbol, to)
-                if (next_time) {
+                if (next_time !== undefined) {
                     result = {
                         s: "no_data",
                         nextTime: next_time
                     }
                 } else {
-                    //TODO: Doesnt even get reached since we have a trycatch for undefined 'to'
                     result = {
                         s: "error",
                         errmsg: `Error finding history: ${symbol}`,
