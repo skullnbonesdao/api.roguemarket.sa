@@ -1,4 +1,4 @@
-import {localStoreInstance, RethinkDB} from "../../../libs/library";
+import {DBClient, localStoreInstance} from "../../../libs/library";
 import {TradeHistory} from "../interfaces/DatafeedUDFCompatibleTradeInterface";
 import {SymbolAdapter} from "../adapters/SymbolAdapter";
 import {UdfErrorResponse, UdfSearchSymbolsResponse,} from "../interfaces/DatafeedUDFCompatibleInterfaces";
@@ -59,37 +59,21 @@ export class UDFSymbolService {
     ): Promise<TradeHistory | UdfErrorResponse> {
         let result: TradeHistory | UdfErrorResponse
         try {
-            const db = new RethinkDB()
-            await db.init()
-            let ochl = await db.getCandleSticks(symbol, resolution, from, to)
-            let tradeHistory: TradeHistory = {
-                s: "ok",
-                t: [],
-                o: [],
-                h: [],
-                l: [],
-                c: [],
-                v: []
-            }
+            const db = new DBClient()
 
-            ochl.forEach(ochl => {
-                tradeHistory.t.push(ochl.t)
-                tradeHistory.o.push(ochl.o)
-                tradeHistory.h.push(ochl.h)
-                tradeHistory.l.push(ochl.l)
-                tradeHistory.c.push(ochl.c)
-                tradeHistory.v.push(ochl.v)
-            })
+            let tradeHistory = await db.query_candleStick(symbol, resolution, from, to)
 
-            if (tradeHistory.t.length > 0)
-                result = tradeHistory
-            else {
-                let next_time: number | undefined = await db.getNextTimestamp(symbol, to);
-                result = {
-                    s: "no_data",
-                    nextTime: next_time
-                }
-            }
+            result = tradeHistory
+
+            /*  if (tradeHistory.t.length > 0)
+                  result = tradeHistory
+              else {
+                  let next_time: number | undefined = await db.getNextTimestamp(symbol, to);
+                  result = {
+                      s: "no_data",
+                      nextTime: next_time
+                  }
+              }*/
         } catch (e) {
             console.log(e)
             result = {
