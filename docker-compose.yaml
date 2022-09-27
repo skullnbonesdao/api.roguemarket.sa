@@ -28,7 +28,9 @@ services:
       SIGNATURE: tVBYazqwqZ4MfAhAj83CywUBTtaoWXBwkivM4SgLh7tth2XbXCeFkMQJZVjRKwFsrLcJGxSiPM3JhwNJ7XuVLJV
       SLEEP: 5000
       SOLANARPC: https://ssc-dao.genesysgo.net/
-      RETHINKDB_HOST: db0
+      MONGOURL: ${MONGOURL}
+      MONGODB: ${MONGODB}
+      MONGOCOL: ${MONGOCOL}
     logging:
       driver: "json-file"
       options:
@@ -36,10 +38,10 @@ services:
 
 
   worker_sync:
-    #image: skullandbonesdao/rogue_worker:latest
-    build:
-      context: .
-      dockerfile: Dockerfile.worker
+    image: skullandbonesdao/rogue_worker:latest
+    #build:
+    #  context: .
+    #  dockerfile: Dockerfile.worker
     restart: always
     environment:
       LIMIT: 200
