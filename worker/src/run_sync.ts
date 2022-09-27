@@ -1,7 +1,7 @@
-import {RethinkDB, sleep} from "../../libs/library";
+import {DBClient, sleep} from "../../libs/library";
 import {executeTask} from "./executeTask";
 
-export const run_sync = async (database: RethinkDB) => {
+export const run_sync = async (database: DBClient) => {
 
 
     let last_signature = process.env.SIGNATURE

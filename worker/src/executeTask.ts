@@ -1,10 +1,9 @@
 import {Worker} from "./worker/worker";
 import {ConfirmedSignatureInfo, ParsedTransactionWithMeta} from "@solana/web3.js";
-import {DBTrade} from "../../libs/library";
-import {ProgressBar,} from "../../libs/library";
-import {RethinkDB} from "../../libs/library"
+import {DBClient, DBTrade, ProgressBar} from "../../libs/library";
 
-export async function executeTask(database: RethinkDB, before?: string): Promise<string | undefined> {
+
+export async function executeTask(database: DBClient, before?: string): Promise<string | undefined> {
     try {
         const worker = new Worker();
 
@@ -23,7 +22,7 @@ export async function executeTask(database: RethinkDB, before?: string): Promise
                 trades.push(worker.mapToDB(transaction as ParsedTransactionWithMeta))
             );
 
-            const written = await database.insert(trades)
+            const written = await database.insert_data(trades)
             worker.printStatus(process.env.MODE ?? "", written);
 
             return signatures[signatures.length - 1].signature

@@ -61,7 +61,7 @@ export class UDFSymbolService {
         try {
             const db = new RethinkDB()
             await db.init()
-            let ohcl = await db.getCandleSticks(symbol, resolution, from, to)
+            let ochl = await db.getCandleSticks(symbol, resolution, from, to)
             let tradeHistory: TradeHistory = {
                 s: "ok",
                 t: [],
@@ -72,13 +72,13 @@ export class UDFSymbolService {
                 v: []
             }
 
-            ohcl.forEach(ohcl => {
-                tradeHistory.t.push(ohcl.t)
-                tradeHistory.o.push(ohcl.o)
-                tradeHistory.h.push(ohcl.h)
-                tradeHistory.l.push(ohcl.l)
-                tradeHistory.c.push(ohcl.c)
-                tradeHistory.v.push(ohcl.v)
+            ochl.forEach(ochl => {
+                tradeHistory.t.push(ochl.t)
+                tradeHistory.o.push(ochl.o)
+                tradeHistory.h.push(ochl.h)
+                tradeHistory.l.push(ochl.l)
+                tradeHistory.c.push(ochl.c)
+                tradeHistory.v.push(ochl.v)
             })
 
             if (tradeHistory.t.length > 0)

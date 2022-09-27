@@ -1,8 +1,8 @@
-import {RethinkDB, sleep} from "../../libs/library"
+import {DBClient, sleep} from "../../libs/library"
 import {executeTask} from "./executeTask";
 
 
-export const run_loop = async (database: RethinkDB) => {
+export const run_loop = async (database: DBClient) => {
 
 
     while (true) {

@@ -25,6 +25,7 @@
     "fs": "^0.0.1-security",
     "jest": "^29.0.3",
     "rethinkdb-ts": "^2.4.22",
-    "ts-jest": "^29.0.1"
+    "ts-jest": "^29.0.1",
+    "mongodb": "^4.9.1"
   }
 }

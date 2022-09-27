@@ -1,38 +1,6 @@
 version: "3.7"
 
 services:
-  db0:
-    hostname: db0_main
-    image: rethinkdb:latest
-    container_name: rethinkdb_1
-    ports:
-      - "9999:8080"
-      - "29015:29015"
-      - "28015:28015"
-    volumes:
-      - "rethinkdb_data_0:/data"
-
-  db1:
-    hostname: db0_sec
-    image: rethinkdb:latest
-    container_name: rethinkdb_2
-    command:
-      - /bin/bash
-      - -c
-      - |
-        rethinkdb --port-offset 1 --join db0:29015 --bind all
-    ports:
-      - "8081:8081"
-      - "29016:29011"
-      - "28016:28016"
-    depends_on:
-      - "db"
-    volumes:
-      - "rethinkdb_data_1:/data"
-    links:
-      - db0
-
-
   api:
     #build:
     #  context: .
@@ -40,10 +8,6 @@ services:
     image: skullandbonesdao/rogue_api:latest
     ports:
       - "3000:3000"
-    links:
-      - db0
-    depends_on:
-      - "db"
     environment:
       RETHINKDB_HOST: db0
       restart: always
@@ -58,10 +22,6 @@ services:
     #      context: .
     #      dockerfile: Dockerfile.worker
     restart: always
-    links:
-      - db0
-    depends_on:
-      - "db"
     environment:
       LIMIT: 100
       MODE: loop
@@ -76,26 +36,21 @@ services:
 
 
   worker_sync:
-    image: skullandbonesdao/rogue_worker:latest
-    #build:
-    #  context: .
-    #  dockerfile: Dockerfile.worker
+    #image: skullandbonesdao/rogue_worker:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
     restart: always
-    links:
-      - db0
-    depends_on:
-      - "db"
     environment:
       LIMIT: 200
       MODE: sync
       SIGNATURE: 3tHpLHtT9gVdzx9JJioARrjEGh28aFYxp7LXmxpbkyAnr8YnknzJv2w4BW5KwcJCgNkQLdduzUSYHLi2suZdEVbQ
       SLEEP: 1000
       SOLANARPC: https://ssc-dao.genesysgo.net/
-      RETHINKDB_HOST: db0
+      MONGOURL: ${MONGOURL}
+      MONGODB: ${MONGODB}
+      MONGOCOL: ${MONGOCOL}
     logging:
       driver: "json-file"
       options:
         max-size: "50m"
-volumes:
-  rethinkdb_data_0:
-  rethinkdb_data_1:

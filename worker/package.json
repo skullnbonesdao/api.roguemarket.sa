@@ -30,7 +30,6 @@
     "core-js": "^3.25.2",
     "log-timestamp": "^0.3.0",
     "mongoose": "^6.6.1",
-    "node-fetch": "^3.2.10",
-    "rethinkdb-ts": "^2.4.22"
+    "node-fetch": "^3.2.10"
   }
 }
