@@ -71,3 +71,25 @@ export function get_history_aggregation(symbol: string, resolution: string, from
         },
     ];
 }
+
+export function get_history_next(symbol: string, to: number) {
+    return [
+        {
+            '$match': {
+                'symbol': symbol
+            }
+        }, {
+            '$match': {
+                'timestamp': {
+                    '$lt': to
+                }
+            }
+        }, {
+            '$sort': {
+                'timestamp': -1
+            }
+        }, {
+            '$limit': 1
+        }
+    ]
+}

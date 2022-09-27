@@ -48,7 +48,7 @@ services:
     environment:
       LIMIT: 200
       MODE: sync
-      SIGNATURE: 3tHpLHtT9gVdzx9JJioARrjEGh28aFYxp7LXmxpbkyAnr8YnknzJv2w4BW5KwcJCgNkQLdduzUSYHLi2suZdEVbQ
+      SIGNATURE: 57wn4ipKbcso7FbXMBttrTAwgoNNibiS8PcCtDHvvPHPZQxETpjpjHsoy3VMm3kpdgBK8iBNgjvF6dxv5vqAZVdb
       SLEEP: 1000
       SOLANARPC: https://ssc-dao.genesysgo.net/
       MONGOURL: ${MONGOURL}

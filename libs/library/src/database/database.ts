@@ -1,7 +1,7 @@
 import {Collection, MongoClient, MongoServerError} from "mongodb"
 import {DBTrade} from "../interfaces/DBTrade";
 import {TradeHistory} from "../interfaces/DatafeedUDFCompatibleTradeInterface";
-import {get_history_aggregation} from "./history_aggregation";
+import {get_history_aggregation, get_history_next} from "./history_aggregation";
 
 export class DBClient {
     private client: MongoClient | undefined
@@ -72,7 +72,7 @@ export class DBClient {
         );
 
         const data = await cursor?.toArray();
-        
+
         data?.forEach((d) => {
             trades.o.push(d.open.toFixed(6));
             trades.c.push(d.close.toFixed(6));
@@ -84,6 +84,18 @@ export class DBClient {
         trades.s = "ok";
 
         return trades;
+    }
+
+    public async find_next(symbol: string,
+                           to: number,
+    ): Promise<number | undefined> {
+        const cursor = await this.collection?.aggregate(
+            get_history_next(symbol, to)
+        )
+        const data = await cursor?.toArray()
+
+        if (data)
+            return data[0].timestamp ?? undefined
     }
 }
 

@@ -59,7 +59,25 @@ export class UDFSymbolService {
         let result: TradeHistory | UdfErrorResponse
         try {
             let tradeHistory = await databaseInstance.query_candleStick(symbol, resolution, from, to)
-            result = tradeHistory
+
+            if (tradeHistory.t.length > 0) {
+                result = tradeHistory
+            } else {
+                const next_time = await databaseInstance.find_next(symbol, to)
+                if (next_time) {
+                    result = {
+                        s: "no_data",
+                        nextTime: next_time
+                    }
+                } else {
+                    //TODO: Doesnt even get reached since we have a trycatch for undefined 'to'
+                    result = {
+                        s: "error",
+                        errmsg: `Error finding history: ${symbol}`,
+                    };
+                }
+
+            }
 
         } catch (e) {
             console.log(e)
