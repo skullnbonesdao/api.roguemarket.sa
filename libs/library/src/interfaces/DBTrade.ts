@@ -1,15 +1,17 @@
-import {CURRENCIES} from "../constants/currencies";
-import {ParsedInstruction} from "./ParsedInstruction";
+import { CURRENCIES } from "../constants/currencies";
+import { ParsedInstruction } from "./ParsedInstruction";
 
-export interface DBTrade {
+import { Types } from 'mongoose';
+
+export interface IDBTrade {
     signature: string;
     timestamp: number;
     slot: number;
     symbol: string
-    trade?: Trade[];
+    trade?: ITrade[];
 }
 
-export interface Trade {
+export interface ITrade {
     side: number;
     seller: string;
     buyer: string;
@@ -19,11 +21,11 @@ export interface Trade {
     token_amount: number;
 }
 
-export function toTrade(parsed_instruction: ParsedInstruction[]): Trade | undefined {
+export function toTrade(parsed_instruction: ParsedInstruction[]): ITrade | undefined {
     if (parsed_instruction.length == 3) {
 
 
-        let trade: Trade = {
+        let trade: ITrade = {
             side: 0,
             seller: "",
             buyer: "",

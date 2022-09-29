@@ -1,5 +1,5 @@
 import {Connection, ParsedTransactionWithMeta, PublicKey,} from "@solana/web3.js";
-import {DBTrade, localStoreInstance, MARKETPLACEPROGRAM, toParsedInstruction, toTrade} from "../../../libs/library"
+import {IDBTrade, localStoreInstance, MARKETPLACEPROGRAM, toParsedInstruction, toTrade} from "../../../libs/library"
 
 interface IWorker {
     connection: Connection;
@@ -59,8 +59,8 @@ export class Worker implements IWorker {
         return filtered_transaction;
     }
 
-    mapToDB(transaction: ParsedTransactionWithMeta): DBTrade {
-        const db_trade: DBTrade = {
+    mapToDB(transaction: ParsedTransactionWithMeta): IDBTrade {
+        const db_trade: IDBTrade = {
             symbol: "",
             signature: transaction.transaction.signatures[0],
             timestamp: transaction.blockTime ?? 0,
@@ -118,8 +118,12 @@ export class Worker implements IWorker {
 
 
     printStatus(mode: string, written: number) {
-        console.log(`mode=${mode}
-    signatures\t -> transactions\t -> filtered\t -> dbEntries\t -> written
-    ${this.status.signatures_length}\t\t\t -> ${this.status.transactions_length}\t\t\t -> ${this.status.filter_length}\t\t -> ${this.status.map_length}\t\t  -> ${written}`);
+        const structDatas = `mode: ${mode}
+|> signatures:\t\t${this.status.signatures_length}  
+|> transactions:\t${this.status.transactions_length}  
+|> filtered:\t\t${this.status.filter_length}  
+|> dbEntries:\t\t${this.status.map_length}  
+|> written:\t\t${written}`;
+        console.table(structDatas);
     }
 }

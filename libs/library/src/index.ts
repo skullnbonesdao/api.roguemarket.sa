@@ -1,4 +1,5 @@
 export * from './adapters/LocalStoreAdapter';
+export * from './database/MDatabase';
 export * from './database/database';
 export * from './database/getOHLC';
 export * from './database/getNext';

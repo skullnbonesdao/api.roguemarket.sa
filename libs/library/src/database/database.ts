@@ -1,7 +1,7 @@
-import {Collection, MongoClient, MongoServerError} from "mongodb"
-import {DBTrade} from "../interfaces/DBTrade";
-import {TradeHistory} from "../interfaces/DatafeedUDFCompatibleTradeInterface";
-import {get_history_aggregation, get_history_before, get_history_next} from "./history_aggregation";
+import { Collection, MongoClient, MongoServerError } from "mongodb"
+import { IDBTrade } from "../interfaces/DBTrade";
+import { TradeHistory } from "../interfaces/DatafeedUDFCompatibleTradeInterface";
+import { get_history_aggregation, get_history_before, get_history_next } from "./history_aggregation";
 
 export class DBClient {
     private client: MongoClient | undefined
@@ -21,7 +21,7 @@ export class DBClient {
 
         this.collection
             .createIndex(
-                {signature: 1},
+                { signature: 1 },
                 {
                     unique: true,
                 }
@@ -33,7 +33,7 @@ export class DBClient {
             })
     }
 
-    public async insert_data(db_entries: DBTrade[]): Promise<number> {
+    public async insert_data(db_entries: IDBTrade[]): Promise<number> {
         let written_count = 0
 
         for (const db_entry of db_entries) {
@@ -87,7 +87,7 @@ export class DBClient {
     }
 
     public async find_next(symbol: string,
-                           to: number,
+        to: number,
     ): Promise<number | undefined> {
         let cursor = await this.collection?.aggregate(
             get_history_next(symbol, to)
@@ -111,4 +111,4 @@ export class DBClient {
 }
 
 const databaseInstance = new DBClient()
-export {databaseInstance}
+export { databaseInstance }
