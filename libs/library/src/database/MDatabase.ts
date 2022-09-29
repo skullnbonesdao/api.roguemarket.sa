@@ -35,10 +35,10 @@ export class MDatabase {
     constructor(connect_str: string) {
     }
 
-    public async init(connect_str: string, options?: boolean) {
+    public async init(options?: boolean) {
 
         if (options) {
-            mongoose.connect(connect_str, {
+            mongoose.connect(process.env.MONGOURL ?? "", {
                 autoIndex: false, maxPoolSize: 10,
                 serverSelectionTimeoutMS: 5000,
                 socketTimeoutMS: 45000,
@@ -52,7 +52,7 @@ export class MDatabase {
             ;
 
         } else {
-            await mongoose.createConnection(connect_str)
+            await mongoose.createConnection(process.env.MONGOURL ?? "")
                 .asPromise()
                 .then((con) => {
                     console.info('DB Connected!');
